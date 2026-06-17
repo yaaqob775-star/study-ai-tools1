@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AI Chat</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      margin: 0;
+      background: #f4f4f4;
+    }
+
+    header {
+      background: #111;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+    }
+
+    .chat-box {
+      max-width: 500px;
+      margin: 20px auto;
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      height: 400px;
+      overflow-y: auto;
+    }
+
+    .msg {
+      margin: 10px 0;
+    }
+
+    .user {
+      text-align: right;
+      color: blue;
+    }
+
+    .bot {
+      text-align: left;
+      color: green;
+    }
+
+    .input-box {
+      display: flex;
+      max-width: 500px;
+      margin: auto;
+    }
+
+    input {
+      flex: 1;
+      padding: 10px;
+    }
+
+    button {
+      padding: 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    AI Chat 🤖
+  </header>
+
+  <div class="chat-box" id="chat"></div>
+
+  <div class="input-box">
+    <input type="text" id="input" placeholder="اكتب رسالتك...">
+    <button onclick="send()">إرسال</button>
+  </div>
+
+  <script>
+    function send() {
+      let input = document.getElementById("input");
+      let chat = document.getElementById("chat");
+
+      let userText = input.value;
+      if (userText === "") return;
+
+      chat.innerHTML += "<div class='msg user'>أنت: " + userText + "</div>";
+
+      let reply = "ما فهمت سؤالك، لكن هذا بداية AI Chat 🚀";
+
+      if (userText.includes("مرحبا")) reply = "أهلاً بك 👋";
+      if (userText.includes("اسمك")) reply = "أنا AI بسيط داخل موقعك 🤖";
+      if (userText.includes("pdf")) reply = "اذهب إلى PDF Tools 📄";
+
+      chat.innerHTML += "<div class='msg bot'>AI: " + reply + "</div>";
+
+      input.value = "";
+      chat.scrollTop = chat.scrollHeight;
+    }
+  </script>
+
+</body>
+</html>
