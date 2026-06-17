@@ -8,50 +8,49 @@
       font-family: Arial;
       text-align: center;
       background: #f4f4f4;
+      margin: 0;
+    }
+
+    header {
+      background: #1f1f1f;
+      color: white;
+      padding: 20px;
+      font-size: 24px;
+    }
+
+    .container {
+      margin-top: 40px;
     }
 
     button {
-      margin: 5px;
-      padding: 10px;
-      cursor: pointer;
+      display: block;
+      margin: 10px auto;
+      padding: 15px;
+      width: 220px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      background: #007bff;
+      color: white;
     }
 
-    textarea {
-      width: 300px;
+    button:hover {
+      background: #0056b3;
     }
   </style>
 </head>
 
 <body>
-  <h1>Study AI Tools 🚀</h1>
-  <p>AI tools for students and pharmacy learning</p>
 
-  <button>PDF Summarizer</button>
-  <button>PDF to Word</button>
-  <button>MCQ Generator</button>
+  <header>
+    Study AI Tools 🚀
+  </header>
 
-  <br><br>
-
-  <textarea id="inputText" placeholder="اكتب النص هنا..." rows="6" cols="40"></textarea>
-
-  <br><br>
-
-  <button onclick="summarize()">تلخيص النص</button>
-
-  <p id="output"></p>
-
-  <script>
-    function summarize() {
-      let text = document.getElementById("inputText").value;
-
-      if(text.length === 0){
-        document.getElementById("output").innerText = "اكتب نص أولاً";
-      } else {
-        document.getElementById("output").innerText =
-          "ملخص: " + text.slice(0, 50) + "...";
-      }
-    }
-  </script>
+  <div class="container">
+    <button onclick="alert('قريباً PDF Tools')">📄 PDF Tools</button>
+    <button onclick="alert('قريباً AI Chat')">🤖 AI Chat</button>
+    <button onclick="alert('قريباً Image Tools')">🖼️ Image Tools</button>
+  </div>
 
 </body>
 </html>
