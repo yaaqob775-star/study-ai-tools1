@@ -19,22 +19,18 @@
     }
 
     .box {
-      margin-top: 50px;
+      margin-top: 40px;
     }
 
-    a {
-      display: block;
-      margin: 10px auto;
-      width: 200px;
-      padding: 12px;
-      background: #007bff;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
+    input {
+      margin-top: 20px;
     }
 
-    a:hover {
-      background: #0056b3;
+    iframe {
+      margin-top: 20px;
+      width: 90%;
+      height: 500px;
+      border: none;
     }
   </style>
 </head>
@@ -42,16 +38,33 @@
 <body>
 
   <header>
-    PDF Tools 📄
+    PDF Viewer 📄
   </header>
 
   <div class="box">
-    <p>مرحبا بك في أدوات PDF</p>
 
-    <a href="#">دمج PDF</a>
-    <a href="#">تقسيم PDF</a>
-    <a href="#">تحويل PDF</a>
+    <p>ارفع ملف PDF من جهازك</p>
+
+    <input type="file" id="fileInput" accept="application/pdf">
+
+    <br>
+
+    <iframe id="viewer"></iframe>
+
   </div>
+
+  <script>
+    const fileInput = document.getElementById("fileInput");
+    const viewer = document.getElementById("viewer");
+
+    fileInput.addEventListener("change", function () {
+      const file = this.files[0];
+      if (file) {
+        const fileURL = URL.createObjectURL(file);
+        viewer.src = fileURL;
+      }
+    });
+  </script>
 
 </body>
 </html>
