@@ -32,10 +32,15 @@
       border-radius: 10px;
       background: #007bff;
       color: white;
+      cursor: pointer;
     }
 
     button:hover {
       background: #0056b3;
+    }
+
+    a {
+      text-decoration: none;
     }
   </style>
 </head>
@@ -47,9 +52,14 @@
   </header>
 
   <div class="container">
-    <button onclick="alert('قريباً PDF Tools')">📄 PDF Tools</button>
+
+    <a href="pdf.html">
+      <button>📄 PDF Tools</button>
+    </a>
+
     <button onclick="alert('قريباً AI Chat')">🤖 AI Chat</button>
     <button onclick="alert('قريباً Image Tools')">🖼️ Image Tools</button>
+
   </div>
 
 </body>
