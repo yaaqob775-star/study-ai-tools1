@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Image Tools</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      margin: 0;
+      background: #0f172a;
+      color: white;
+      text-align: center;
+    }
+
+    header {
+      background: #111827;
+      padding: 20px;
+      font-size: 24px;
+    }
+
+    .box {
+      margin-top: 40px;
+    }
+
+    input {
+      margin-top: 20px;
+    }
+
+    img {
+      margin-top: 20px;
+      max-width: 90%;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    Image Tools 🖼️
+  </header>
+
+  <div class="box">
+
+    <p>ارفع صورة من جهازك</p>
+
+    <input type="file" id="imgInput" accept="image/*">
+
+    <br>
+
+    <img id="preview">
+
+  </div>
+
+  <script>
+    document.getElementById("imgInput").addEventListener("change", function () {
+      let file = this.files[0];
+      if (file) {
+        let url = URL.createObjectURL(file);
+        document.getElementById("preview").src = url;
+      }
+    });
+  </script>
+
+</body>
+</html>
