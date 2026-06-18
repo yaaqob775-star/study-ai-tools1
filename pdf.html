@@ -3,68 +3,28 @@
 <head>
   <title>PDF Tools</title>
 
+  <meta name="theme-color" content="#111827">
+
   <style>
-    body {
-      font-family: Arial;
-      text-align: center;
-      background: #f4f4f4;
-      margin: 0;
-    }
-
-    header {
-      background: #1f1f1f;
-      color: white;
-      padding: 20px;
-      font-size: 24px;
-    }
-
-    .box {
-      margin-top: 40px;
-    }
-
-    input {
-      margin-top: 20px;
-    }
-
-    iframe {
-      margin-top: 20px;
-      width: 90%;
-      height: 500px;
-      border: none;
-    }
+    body { font-family: Arial; text-align: center; margin:0; }
+    header { background:#111827; color:white; padding:20px; }
+    iframe { width:90%; height:500px; border:none; }
   </style>
 </head>
 
 <body>
 
-  <header>
-    PDF Viewer 📄
-  </header>
+<header>PDF Viewer 📄</header>
 
-  <div class="box">
+<input type="file" id="file" accept="application/pdf">
 
-    <p>ارفع ملف PDF من جهازك</p>
+<iframe id="viewer"></iframe>
 
-    <input type="file" id="fileInput" accept="application/pdf">
-
-    <br>
-
-    <iframe id="viewer"></iframe>
-
-  </div>
-
-  <script>
-    const fileInput = document.getElementById("fileInput");
-    const viewer = document.getElementById("viewer");
-
-    fileInput.addEventListener("change", function () {
-      const file = this.files[0];
-      if (file) {
-        const fileURL = URL.createObjectURL(file);
-        viewer.src = fileURL;
-      }
-    });
-  </script>
+<script>
+file.onchange = function(){
+  viewer.src = URL.createObjectURL(this.files[0]);
+}
+</script>
 
 </body>
 </html>
