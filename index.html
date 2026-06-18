@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>AI Tools Hub</title>
 
-  <meta name="theme-color" content="#111827">
+  <!-- PWA -->
   <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#111827">
 
   <style>
     body {
@@ -19,6 +23,7 @@
       padding: 18px;
       text-align: center;
       font-size: 22px;
+      font-weight: bold;
       position: sticky;
       top: 0;
     }
@@ -29,12 +34,13 @@
     }
 
     input {
-      padding: 10px;
+      padding: 12px;
       width: 85%;
-      max-width: 300px;
+      max-width: 320px;
       border-radius: 10px;
       border: none;
       outline: none;
+      font-size: 14px;
     }
 
     .grid {
@@ -53,11 +59,27 @@
       text-decoration: none;
       color: white;
       font-size: 18px;
+      transition: 0.2s;
       display: block;
     }
 
     .card:hover {
       background: #2563eb;
+      transform: scale(1.02);
+    }
+
+    .text {
+      text-align: center;
+      color: #94a3b8;
+      font-size: 13px;
+      margin-top: 10px;
+    }
+
+    .install {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 12px;
+      color: #60a5fa;
     }
   </style>
 </head>
@@ -67,27 +89,46 @@
 <header>🚀 AI Tools Hub</header>
 
 <div class="search">
-  <input id="searchBox" placeholder="ابحث..." onkeyup="searchTools()">
+  <input type="text" id="searchBox" placeholder="ابحث عن أداة..." onkeyup="searchTools()">
 </div>
 
+<p class="text">
+  تطبيق أدوات ذكية يمكن تثبيته على الجوال 📱
+</p>
+
 <div class="grid" id="tools">
+
   <a class="card" href="pdf.html">📄 PDF Tools</a>
+
   <a class="card" href="chat.html">🤖 AI Chat</a>
+
   <a class="card" href="image.html">🖼 Image Tools</a>
+
 </div>
+
+<p class="install" id="installMsg"></p>
 
 <script>
 function searchTools() {
   let input = document.getElementById("searchBox").value.toLowerCase();
-  document.querySelectorAll(".card").forEach(card => {
+  let cards = document.querySelectorAll(".card");
+
+  cards.forEach(card => {
     card.style.display = card.textContent.toLowerCase().includes(input) ? "block" : "none";
   });
 }
 </script>
 
+<!-- Service Worker (PWA Fix) -->
 <script>
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("./sw.js");
+  navigator.serviceWorker.register("./sw.js")
+    .then(() => {
+      document.getElementById("installMsg").innerText = "✔ التطبيق جاهز للتثبيت إذا ظهر Install App";
+    })
+    .catch(err => {
+      document.getElementById("installMsg").innerText = "❌ خطأ في PWA";
+    });
 }
 </script>
 
