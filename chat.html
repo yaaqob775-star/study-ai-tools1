@@ -3,8 +3,6 @@
 <head>
   <title>AI Chat</title>
 
-  <meta name="theme-color" content="#111827">
-
   <style>
     body {
       font-family: Arial;
@@ -58,6 +56,7 @@
     input {
       flex: 1;
       padding: 12px;
+      border: 1px solid #333;
     }
 
     button {
@@ -65,22 +64,24 @@
       background: #2563eb;
       color: white;
       border: none;
+      cursor: pointer;
     }
   </style>
 </head>
 
 <body>
 
-<header>AI Chat 🤖 (Free)</header>
+<header>AI Chat 🤖</header>
 
 <div class="chat-box" id="chat"></div>
 
 <div class="input-box">
-  <input id="input" placeholder="اكتب...">
-  <button onclick="send()">إرسال</button>
+  <input id="input" placeholder="اكتب هنا...">
+  <button id="btn">إرسال</button>
 </div>
 
 <script>
+document.getElementById("btn").addEventListener("click", send);
 
 function send() {
   let input = document.getElementById("input");
@@ -92,37 +93,22 @@ function send() {
   chat.innerHTML += <div class="msg user">أنت: ${text}</div>;
   input.value = "";
 
-  chat.innerHTML += <div class="msg bot">جاري التفكير...</div>;
-  chat.scrollTop = chat.scrollHeight;
+  let reply = getReply(text);
 
-  getReply(text).then(res => {
-    chat.innerHTML += <div class="msg bot">${res}</div>;
-    chat.scrollTop = chat.scrollHeight;
-  });
+  chat.innerHTML += <div class="msg bot">${reply}</div>;
+  chat.scrollTop = chat.scrollHeight;
 }
 
-async function getReply(text) {
+function getReply(text) {
   text = text.toLowerCase();
 
-  if (text.includes("مرحبا")) {
-    return "أهلاً 👋 كيف أقدر أساعدك؟";
-  }
+  if (text.includes("مرحبا")) return "أهلاً 👋";
+  if (text.includes("html")) return "HTML هي لغة بناء صفحات الويب";
+  if (text.includes("css")) return "CSS لتنسيق المواقع";
+  if (text.includes("javascript")) return "JavaScript تجعل الموقع تفاعلي";
 
-  if (text.includes("html")) {
-    return "HTML هي لغة بناء صفحات الويب.";
-  }
-
-  if (text.includes("css")) {
-    return "CSS لتنسيق الألوان والشكل.";
-  }
-
-  if (text.includes("javascript")) {
-    return "JavaScript تجعل الموقع تفاعلي.";
-  }
-
-  return "أنا هنا أساعدك 👍 اكتب سؤال أوضح.";
+  return "اكتب سؤال أوضح 👍";
 }
-
 </script>
 
 </body>
