@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AI Chat</title>
+  <title>AI Chat Pro</title>
 
   <style>
     body {
       font-family: Arial;
       margin: 0;
-      background: #0f172a;
+      background: #0b1220;
       color: white;
     }
 
     header {
       background: #111827;
-      padding: 20px;
+      padding: 18px;
       text-align: center;
-      font-size: 24px;
+      font-size: 22px;
       font-weight: bold;
     }
 
@@ -31,18 +31,18 @@
 
     .msg {
       margin: 8px 0;
-      padding: 8px;
-      border-radius: 8px;
+      padding: 10px;
+      border-radius: 10px;
     }
 
     .user {
-      text-align: right;
       background: #2563eb;
+      text-align: right;
     }
 
     .bot {
-      text-align: left;
       background: #16a34a;
+      text-align: left;
     }
 
     .input-box {
@@ -55,6 +55,7 @@
       flex: 1;
       padding: 10px;
       border: none;
+      outline: none;
     }
 
     button {
@@ -69,27 +70,23 @@
 <body>
 
   <header>
-    AI Chat 🤖 (Smart Upgrade)
+    AI Chat Pro 🤖
   </header>
 
   <div class="chat-box" id="chat"></div>
 
   <div class="input-box">
-    <input type="text" id="input" placeholder="اكتب رسالتك...">
+    <input type="text" id="input" placeholder="اكتب سؤالك...">
     <button onclick="send()">إرسال</button>
   </div>
 
   <script>
-    let memory = [];
-
     function send() {
       let input = document.getElementById("input");
       let chat = document.getElementById("chat");
 
       let text = input.value.trim();
       if (!text) return;
-
-      memory.push(text);
 
       chat.innerHTML += <div class='msg user'>أنت: ${text}</div>;
 
@@ -104,35 +101,35 @@
     function getReply(text) {
       text = text.toLowerCase();
 
-      // ذاكرة بسيطة
-      if (memory.length > 3) {
-        if (text.includes("قلت")) {
-          return "أنت قلت قبل: " + memory[memory.length - 2];
-        }
+      // تعليم ذكي
+      if (text.includes("html")) {
+        return "HTML هي لغة بناء صفحات الويب 🌐 وتستخدم لهيكلة المحتوى.";
       }
 
-      // ردود أقوى
-      if (text.includes("مرحبا") || text.includes("hello")) {
-        return "أهلاً بك 👋 كيف أقدر أساعدك؟";
+      if (text.includes("css")) {
+        return "CSS تستخدم لتنسيق وتصميم الصفحات 🎨 مثل الألوان والحجم.";
       }
 
-      if (text.includes("اسمك")) {
-        return "أنا مساعد ذكي مطوّر داخل موقعك 🤖";
+      if (text.includes("js") || text.includes("javascript")) {
+        return "JavaScript تجعل الموقع تفاعلي مثل هذا الشات 🤖";
       }
 
+      // PDF
       if (text.includes("pdf")) {
-        return "روح إلى PDF Tools من الصفحة الرئيسية 📄";
+        return "تقدر تستخدم PDF Tools من الصفحة الرئيسية 📄";
       }
 
-      if (text.includes("تعلم")) {
-        return "أنا أقدر أشرح لك أي شيء خطوة خطوة 👍";
+      // شرح عام
+      if (text.includes("اشرح") || text.includes("كيف")) {
+        return "أكيد 👍 قل لي الموضوع وأنا أشرحه لك خطوة خطوة.";
       }
 
-      if (text.includes("موقع")) {
-        return "هذا مشروع AI Tools Hub خاص بك 🚀";
+      // دعم
+      if (text.includes("مرحبا") || text.includes("hello")) {
+        return "أهلاً بك 👋 أنا مساعدك داخل الموقع.";
       }
 
-      return "ما زلت أتعلم 🤖 لكني أصبح أذكى مع الوقت!";
+      return "أنا مساعد ذكي بسيط داخل مشروعك 🤖 لكني أتعلم وأتحسن مع الوقت.";
     }
   </script>
 
