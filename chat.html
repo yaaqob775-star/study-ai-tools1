@@ -64,6 +64,13 @@
       color: white;
       border: none;
     }
+
+    .hint {
+      text-align: center;
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 5px;
+    }
   </style>
 </head>
 
@@ -80,6 +87,8 @@
     <button onclick="send()">إرسال</button>
   </div>
 
+  <p class="hint">اسأل عن البرمجة، الدراسة، أو أي شيء 👍</p>
+
   <script>
     function send() {
       let input = document.getElementById("input");
@@ -93,43 +102,56 @@
       setTimeout(() => {
         chat.innerHTML += <div class='msg bot'>AI: ${getReply(text)}</div>;
         chat.scrollTop = chat.scrollHeight;
-      }, 400);
+      }, 500);
 
       input.value = "";
     }
 
     function getReply(text) {
-      text = text.toLowerCase();
+      let t = text.toLowerCase();
 
-      // تعليم ذكي
-      if (text.includes("html")) {
+      // --- تعليم برمجة ---
+      if (t.includes("html")) {
         return "HTML هي لغة بناء صفحات الويب 🌐 وتستخدم لهيكلة المحتوى.";
       }
 
-      if (text.includes("css")) {
-        return "CSS تستخدم لتنسيق وتصميم الصفحات 🎨 مثل الألوان والحجم.";
+      if (t.includes("css")) {
+        return "CSS تستخدم لتصميم وتنسيق المواقع 🎨 مثل الألوان والخطوط.";
       }
 
-      if (text.includes("js") || text.includes("javascript")) {
+      if (t.includes("javascript") || t.includes("js")) {
         return "JavaScript تجعل الموقع تفاعلي مثل هذا الشات 🤖";
       }
 
-      // PDF
-      if (text.includes("pdf")) {
-        return "تقدر تستخدم PDF Tools من الصفحة الرئيسية 📄";
+      // --- شرح عام ---
+      if (t.includes("اشرح") || t.includes("كيف")) {
+        return "أكيد 👍 اكتب لي الموضوع وأنا أشرحه لك خطوة خطوة.";
       }
 
-      // شرح عام
-      if (text.includes("اشرح") || text.includes("كيف")) {
-        return "أكيد 👍 قل لي الموضوع وأنا أشرحه لك خطوة خطوة.";
+      // --- دراسي ---
+      if (t.includes("رياضيات")) {
+        return "أقدر أساعدك في الرياضيات 👍 اكتب السؤال وسأحلّه لك خطوة خطوة.";
       }
 
-      // دعم
-      if (text.includes("مرحبا") || text.includes("hello")) {
-        return "أهلاً بك 👋 أنا مساعدك داخل الموقع.";
+      if (t.includes("انجليزي")) {
+        return "أقدر أساعدك في الإنجليزي: ترجمة، قواعد، أو شرح كلمات 👍";
       }
 
-      return "أنا مساعد ذكي بسيط داخل مشروعك 🤖 لكني أتعلم وأتحسن مع الوقت.";
+      // --- الموقع ---
+      if (t.includes("pdf")) {
+        return "روح إلى PDF Tools من الصفحة الرئيسية 📄";
+      }
+
+      if (t.includes("image")) {
+        return "روح إلى Image Tools 🖼️";
+      }
+
+      // --- عام ---
+      if (t.includes("مرحبا") || t.includes("hello")) {
+        return "أهلاً بك 👋 أنا مساعدك الذكي داخل الموقع.";
+      }
+
+      return "أنا أفهم أكثر الآن 🤖 اكتب سؤال أوضح وسأساعدك أفضل.";
     }
   </script>
 
