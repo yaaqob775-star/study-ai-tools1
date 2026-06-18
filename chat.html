@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AI Chat Pro (OpenRouter)</title>
+  <title>AI Chat Pro</title>
 
   <style>
     body {
@@ -22,27 +22,34 @@
     .chat-box {
       max-width: 520px;
       margin: 20px auto;
-      background: #1f2937;
+      background: #0f172a;
       padding: 15px;
       border-radius: 12px;
-      height: 420px;
+      height: 450px;
       overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .msg {
-      margin: 8px 0;
-      padding: 10px;
-      border-radius: 10px;
+      padding: 12px;
+      border-radius: 12px;
+      max-width: 80%;
       line-height: 1.5;
+      word-wrap: break-word;
+      font-size: 15px;
     }
 
     .user {
       background: #2563eb;
+      align-self: flex-end;
       text-align: right;
     }
 
     .bot {
       background: #16a34a;
+      align-self: flex-start;
       text-align: left;
       white-space: pre-line;
     }
@@ -55,13 +62,14 @@
 
     input {
       flex: 1;
-      padding: 10px;
+      padding: 12px;
       border: none;
       outline: none;
+      font-size: 14px;
     }
 
     button {
-      padding: 10px;
+      padding: 12px;
       background: #2563eb;
       color: white;
       border: none;
@@ -80,7 +88,7 @@
 <body>
 
   <header>
-    AI Chat Pro 🤖 (OpenRouter AI)
+    AI Chat Pro 🤖
   </header>
 
   <div class="chat-box" id="chat"></div>
@@ -90,7 +98,7 @@
     <button onclick="send()">إرسال</button>
   </div>
 
-  <p class="hint">الآن الشات يستخدم ذكاء اصطناعي حقيقي عبر OpenRouter</p>
+  <p class="hint">ذكاء اصطناعي متصل عبر OpenRouter</p>
 
   <script>
     function send() {
@@ -125,7 +133,7 @@
             messages: [
               {
                 role: "system",
-                content: "أنت مساعد دراسي ذكي داخل موقع AI Tools Hub. اشرح بشكل بسيط وخطوات واضحة."
+                content: "أنت مساعد ذكي داخل تطبيق AI Tools Hub. اشرح بشكل بسيط ومفيد وبخطوات واضحة."
               },
               {
                 role: "user",
@@ -137,10 +145,10 @@
 
         let data = await response.json();
 
-        return data.choices?.[0]?.message?.content || "ما قدرت أجيب رد 🤖";
+        return data?.choices?.[0]?.message?.content || "ما قدرت أجيب رد 🤖";
 
       } catch (error) {
-        return "حدث خطأ في الاتصال بالذكاء الاصطناعي 🤖";
+        return "حدث خطأ في الاتصال 🤖";
       }
     }
   </script>
