@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AI Study Assistant</title>
+  <title>AI Chat Pro (API)</title>
 
   <style>
     body {
@@ -80,17 +80,17 @@
 <body>
 
   <header>
-    AI Study Assistant 📚🤖
+    AI Chat Pro 🤖 (Smart API Mode)
   </header>
 
   <div class="chat-box" id="chat"></div>
 
   <div class="input-box">
-    <input type="text" id="input" placeholder="اكتب سؤالك الدراسي...">
+    <input type="text" id="input" placeholder="اكتب سؤالك...">
     <button onclick="send()">إرسال</button>
   </div>
 
-  <p class="hint">اسأل: رياضيات، إنجليزي، برمجة، أو أي شرح 👍</p>
+  <p class="hint">الذكاء الآن يعتمد على API (ردود حقيقية)</p>
 
   <script>
     let memory = [];
@@ -106,67 +106,47 @@
 
       chat.innerHTML += <div class='msg user'>أنت: ${text}</div>;
 
-      setTimeout(() => {
-        chat.innerHTML += <div class='msg bot'>${getReply(text)}</div>;
-        chat.scrollTop = chat.scrollHeight;
-      }, 500);
-
       input.value = "";
+
+      chat.innerHTML += <div class='msg bot'>جاري التفكير 🤖...</div>;
+      chat.scrollTop = chat.scrollHeight;
+
+      getReply(text).then(reply => {
+        chat.innerHTML += <div class='msg bot'>${reply}</div>;
+        chat.scrollTop = chat.scrollHeight;
+      });
     }
 
-    function getReply(text) {
-      let t = text.toLowerCase();
+    async function getReply(text) {
+      try {
+        let response = await fetch("https://api.openai.com/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer YOUR_API_KEY"
+          },
+          body: JSON.stringify({
+            model: "gpt-4o-mini",
+            messages: [
+              {
+                role: "system",
+                content: "أنت مساعد دراسي ذكي داخل موقع AI Tools Hub. اشرح ببساطة وبخطوات واضحة ومختصرة."
+              },
+              {
+                role: "user",
+                content: text
+              }
+            ]
+          })
+        });
 
-      // --- تعريف عام ---
-      if (t.includes("من أنت")) {
-        return "أنا مساعد دراسي ذكي داخل موقعك 🤖 أشرح وأحل وأسهل عليك الدراسة.";
+        let data = await response.json();
+
+        return data.choices?.[0]?.message?.content || "ما قدرت أجيب رد 🤖";
+
+      } catch (error) {
+        return "حدث خطأ في الاتصال بالذكاء الاصطناعي 🤖";
       }
-
-      // --- برمجة ---
-      if (t.includes("html")) {
-        return "📘 HTML:\nهي لغة بناء صفحات الويب.\nتستخدم لإنشاء الهيكل مثل العناوين والنصوص والصور.";
-      }
-
-      if (t.includes("css")) {
-        return "🎨 CSS:\nتستخدم لتجميل الموقع مثل الألوان، الخطوط، والتنسيق.";
-      }
-
-      if (t.includes("javascript") || t.includes("js")) {
-        return "⚡ JavaScript:\nتجعل الموقع تفاعلي (أزرار، شات، حركات).";
-      }
-
-      // --- رياضيات ---
-      if (t.includes("رياضيات")) {
-        return "📊 الرياضيات:\nاكتب السؤال وسأحلّه لك خطوة خطوة مع شرح بسيط 👍";
-      }
-
-      // --- إنجليزي ---
-      if (t.includes("انجليزي")) {
-        return "📘 English:\nأقدر أترجم وأشرح القواعد والكلمات خطوة خطوة.";
-      }
-
-      // --- شرح عام ---
-      if (t.includes("اشرح") || t.includes("كيف")) {
-        return "أكيد 👍\nاكتب السؤال وسأشرحه لك بشكل بسيط خطوة خطوة.";
-      }
-
-      // --- PDF ---
-      if (t.includes("pdf")) {
-        return "📄 استخدم PDF Tools من الصفحة الرئيسية.";
-      }
-
-      // --- Image ---
-      if (t.includes("صورة") || t.includes("image")) {
-        return "🖼️ استخدم Image Tools من الصفحة الرئيسية.";
-      }
-
-      // --- ذاكرة بسيطة ---
-      if (t.includes("قلت")) {
-        return "أنت قلت قبل: " + memory[Math.max(0, memory.length - 2)];
-      }
-
-      // --- افتراضي ذكي ---
-      return "🤖 أنا مساعد دراسي وأفهم أكثر مع الوقت.\nاكتب سؤالك بشكل أوضح وسأشرح لك خطوة خطوة.";
     }
   </script>
 
