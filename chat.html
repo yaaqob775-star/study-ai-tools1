@@ -1,3 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AI Chat</title>
+
+  <meta name="theme-color" content="#111827">
+
+  <style>
+    body {
+      font-family: Arial;
+      margin: 0;
+      background: #0b1220;
+      color: white;
+    }
+
+    header {
+      background: #111827;
+      padding: 18px;
+      text-align: center;
+      font-size: 22px;
+    }
+
+    .chat-box {
+      max-width: 520px;
+      margin: 20px auto;
+      background: #0f172a;
+      padding: 15px;
+      border-radius: 12px;
+      height: 450px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .msg {
+      padding: 12px;
+      border-radius: 12px;
+      max-width: 80%;
+      white-space: pre-line;
+    }
+
+    .user {
+      background: #2563eb;
+      align-self: flex-end;
+    }
+
+    .bot {
+      background: #16a34a;
+      align-self: flex-start;
+    }
+
+    .input-box {
+      display: flex;
+      max-width: 520px;
+      margin: auto;
+    }
+
+    input {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      outline: none;
+    }
+
+    button {
+      padding: 12px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>AI Chat 🤖</header>
+
+<div class="chat-box" id="chat"></div>
+
+<div class="input-box">
+  <input id="input" placeholder="اكتب...">
+  <button onclick="send()">إرسال</button>
+</div>
+
+<script>
+
 function send() {
   let input = document.getElementById("input");
   let chat = document.getElementById("chat");
@@ -16,3 +104,39 @@ function send() {
     chat.scrollTop = chat.scrollHeight;
   });
 }
+
+async function getReply(text) {
+  try {
+    let res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer YOUR_API_KEY_HERE"
+      },
+      body: JSON.stringify({
+        model: "openai/gpt-4o-mini",
+        messages: [
+          {
+            role: "system",
+            content: "أنت مساعد ذكي تشرح بشكل بسيط وواضح."
+          },
+          {
+            role: "user",
+            content: text
+          }
+        ]
+      })
+    });
+
+    let data = await res.json();
+    return data?.choices?.[0]?.message?.content || "ما في رد";
+
+  } catch (e) {
+    return "خطأ في الاتصال";
+  }
+}
+
+</script>
+
+</body>
+</html>
