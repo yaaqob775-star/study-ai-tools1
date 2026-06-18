@@ -3,6 +3,9 @@
 <head>
   <title>AI Tools Hub</title>
 
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+
   <style>
     body {
       font-family: Arial;
@@ -56,6 +59,13 @@
       background: #2563eb;
       transform: scale(1.02);
     }
+
+    .text {
+      text-align: center;
+      color: #94a3b8;
+      font-size: 13px;
+      margin-top: 10px;
+    }
   </style>
 </head>
 
@@ -68,6 +78,8 @@
   <div class="search">
     <input type="text" id="searchBox" placeholder="ابحث عن أداة..." onkeyup="searchTools()">
   </div>
+
+  <p class="text">موقع أدواتك الذكية - يمكن تثبيته كتطبيق 📱</p>
 
   <div class="grid" id="tools">
 
