@@ -3,7 +3,7 @@
 <head>
   <title>AI Tools Hub</title>
 
-  <!-- PWA -->
+  <!-- PWA Manifest -->
   <link rel="manifest" href="manifest.json">
 
   <style>
@@ -31,8 +31,10 @@
     input {
       padding: 10px;
       width: 85%;
+      max-width: 300px;
       border-radius: 10px;
       border: none;
+      outline: none;
     }
 
     .grid {
@@ -102,6 +104,13 @@
         let text = card.textContent.toLowerCase();
         card.style.display = text.includes(input) ? "block" : "none";
       });
+    }
+  </script>
+
+  <!-- Service Worker -->
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js");
     }
   </script>
 
