@@ -4,8 +4,8 @@
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#0b1220",
   "theme_color": "#111827",
+  "background_color": "#0b1220",
   "icons": [
     {
       "src": "https://cdn-icons-png.flaticon.com/512/4712/4712109.png",
