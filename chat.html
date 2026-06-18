@@ -24,22 +24,24 @@
       background: white;
       padding: 15px;
       border-radius: 10px;
-      height: 400px;
+      height: 420px;
       overflow-y: auto;
     }
 
     .msg {
       margin: 10px 0;
+      padding: 8px;
+      border-radius: 8px;
     }
 
     .user {
       text-align: right;
-      color: blue;
+      background: #dbeafe;
     }
 
     .bot {
       text-align: left;
-      color: green;
+      background: #dcfce7;
     }
 
     .input-box {
@@ -51,6 +53,7 @@
     input {
       flex: 1;
       padding: 10px;
+      border: 1px solid #ccc;
     }
 
     button {
@@ -58,6 +61,10 @@
       background: #007bff;
       color: white;
       border: none;
+    }
+
+    button:hover {
+      background: #0056b3;
     }
   </style>
 </head>
@@ -80,21 +87,39 @@
       let input = document.getElementById("input");
       let chat = document.getElementById("chat");
 
-      let userText = input.value;
-      if (userText === "") return;
+      let text = input.value.trim();
+      if (!text) return;
 
-      chat.innerHTML += "<div class='msg user'>أنت: " + userText + "</div>";
+      chat.innerHTML += <div class='msg user'>أنت: ${text}</div>;
 
-      let reply = "ما فهمت سؤالك، لكن هذا بداية AI Chat 🚀";
+      let reply = getReply(text.toLowerCase());
 
-      if (userText.includes("مرحبا")) reply = "أهلاً بك 👋";
-      if (userText.includes("اسمك")) reply = "أنا AI بسيط داخل موقعك 🤖";
-      if (userText.includes("pdf")) reply = "اذهب إلى PDF Tools 📄";
-
-      chat.innerHTML += "<div class='msg bot'>AI: " + reply + "</div>";
+      setTimeout(() => {
+        chat.innerHTML += <div class='msg bot'>AI: ${reply}</div>;
+        chat.scrollTop = chat.scrollHeight;
+      }, 500);
 
       input.value = "";
-      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function getReply(text) {
+      if (text.includes("مرحبا") || text.includes("hello")) {
+        return "أهلاً بك 👋 كيف أقدر أساعدك؟";
+      }
+
+      if (text.includes("اسمك")) {
+        return "أنا مساعد ذكي داخل موقعك 🤖";
+      }
+
+      if (text.includes("pdf")) {
+        return "روح إلى PDF Tools 📄 من الصفحة الرئيسية";
+      }
+
+      if (text.includes("موقع")) {
+        return "هذا مشروع AI Tools Hub خاص بك 🚀";
+      }
+
+      return "أنا ما زلت أتعلم 🤖 لكني سأتحسن مع الوقت!";
     }
   </script>
 
