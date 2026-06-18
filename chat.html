@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AI Chat Pro</title>
+  <title>AI Study Assistant</title>
 
   <style>
     body {
@@ -20,7 +20,7 @@
     }
 
     .chat-box {
-      max-width: 500px;
+      max-width: 520px;
       margin: 20px auto;
       background: #1f2937;
       padding: 15px;
@@ -33,6 +33,7 @@
       margin: 8px 0;
       padding: 10px;
       border-radius: 10px;
+      line-height: 1.5;
     }
 
     .user {
@@ -43,11 +44,12 @@
     .bot {
       background: #16a34a;
       text-align: left;
+      white-space: pre-line;
     }
 
     .input-box {
       display: flex;
-      max-width: 500px;
+      max-width: 520px;
       margin: auto;
     }
 
@@ -63,6 +65,14 @@
       background: #2563eb;
       color: white;
       border: none;
+      cursor: pointer;
+    }
+
+    .hint {
+      text-align: center;
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 6px;
     }
   </style>
 </head>
@@ -70,15 +80,17 @@
 <body>
 
   <header>
-    AI Chat Pro 🤖 (Memory Mode)
+    AI Study Assistant 📚🤖
   </header>
 
   <div class="chat-box" id="chat"></div>
 
   <div class="input-box">
-    <input type="text" id="input" placeholder="اكتب سؤالك...">
+    <input type="text" id="input" placeholder="اكتب سؤالك الدراسي...">
     <button onclick="send()">إرسال</button>
   </div>
+
+  <p class="hint">اسأل: رياضيات، إنجليزي، برمجة، أو أي شرح 👍</p>
 
   <script>
     let memory = [];
@@ -95,9 +107,9 @@
       chat.innerHTML += <div class='msg user'>أنت: ${text}</div>;
 
       setTimeout(() => {
-        chat.innerHTML += <div class='msg bot'>AI: ${getReply(text)}</div>;
+        chat.innerHTML += <div class='msg bot'>${getReply(text)}</div>;
         chat.scrollTop = chat.scrollHeight;
-      }, 400);
+      }, 500);
 
       input.value = "";
     }
@@ -105,28 +117,56 @@
     function getReply(text) {
       let t = text.toLowerCase();
 
-      // --- ذاكرة ---
-      if (t.includes("قلت")) {
-        return "أنت قلت سابقًا: " + memory[memory.length - 2];
+      // --- تعريف عام ---
+      if (t.includes("من أنت")) {
+        return "أنا مساعد دراسي ذكي داخل موقعك 🤖 أشرح وأحل وأسهل عليك الدراسة.";
       }
 
-      // --- تعليم ---
-      if (t.includes("html")) return "HTML هي لغة بناء صفحات الويب 🌐";
-      if (t.includes("css")) return "CSS لتنسيق المواقع 🎨";
-      if (t.includes("js")) return "JavaScript تجعل الموقع تفاعلي 🤖";
+      // --- برمجة ---
+      if (t.includes("html")) {
+        return "📘 HTML:\nهي لغة بناء صفحات الويب.\nتستخدم لإنشاء الهيكل مثل العناوين والنصوص والصور.";
+      }
 
-      // --- دراسة ---
-      if (t.includes("رياضيات")) return "أقدر أساعدك في الرياضيات خطوة خطوة 👍";
-      if (t.includes("انجليزي")) return "أقدر أشرح لك الإنجليزي وترجماته 👍";
+      if (t.includes("css")) {
+        return "🎨 CSS:\nتستخدم لتجميل الموقع مثل الألوان، الخطوط، والتنسيق.";
+      }
 
-      // --- أدوات ---
-      if (t.includes("pdf")) return "اذهب إلى PDF Tools 📄";
-      if (t.includes("image")) return "اذهب إلى Image Tools 🖼️";
+      if (t.includes("javascript") || t.includes("js")) {
+        return "⚡ JavaScript:\nتجعل الموقع تفاعلي (أزرار، شات، حركات).";
+      }
 
-      // --- عام ---
-      if (t.includes("مرحبا")) return "أهلاً بك 👋";
+      // --- رياضيات ---
+      if (t.includes("رياضيات")) {
+        return "📊 الرياضيات:\nاكتب السؤال وسأحلّه لك خطوة خطوة مع شرح بسيط 👍";
+      }
 
-      return "أنا أتعلم من محادثتك 🤖 وأتحسن مع الوقت!";
+      // --- إنجليزي ---
+      if (t.includes("انجليزي")) {
+        return "📘 English:\nأقدر أترجم وأشرح القواعد والكلمات خطوة خطوة.";
+      }
+
+      // --- شرح عام ---
+      if (t.includes("اشرح") || t.includes("كيف")) {
+        return "أكيد 👍\nاكتب السؤال وسأشرحه لك بشكل بسيط خطوة خطوة.";
+      }
+
+      // --- PDF ---
+      if (t.includes("pdf")) {
+        return "📄 استخدم PDF Tools من الصفحة الرئيسية.";
+      }
+
+      // --- Image ---
+      if (t.includes("صورة") || t.includes("image")) {
+        return "🖼️ استخدم Image Tools من الصفحة الرئيسية.";
+      }
+
+      // --- ذاكرة بسيطة ---
+      if (t.includes("قلت")) {
+        return "أنت قلت قبل: " + memory[Math.max(0, memory.length - 2)];
+      }
+
+      // --- افتراضي ذكي ---
+      return "🤖 أنا مساعد دراسي وأفهم أكثر مع الوقت.\nاكتب سؤالك بشكل أوضح وسأشرح لك خطوة خطوة.";
     }
   </script>
 
