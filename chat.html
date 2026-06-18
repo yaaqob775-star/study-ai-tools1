@@ -64,20 +64,13 @@
       color: white;
       border: none;
     }
-
-    .hint {
-      text-align: center;
-      font-size: 12px;
-      color: #94a3b8;
-      margin-top: 5px;
-    }
   </style>
 </head>
 
 <body>
 
   <header>
-    AI Chat Pro 🤖
+    AI Chat Pro 🤖 (Memory Mode)
   </header>
 
   <div class="chat-box" id="chat"></div>
@@ -87,9 +80,9 @@
     <button onclick="send()">إرسال</button>
   </div>
 
-  <p class="hint">اسأل عن البرمجة، الدراسة، أو أي شيء 👍</p>
-
   <script>
+    let memory = [];
+
     function send() {
       let input = document.getElementById("input");
       let chat = document.getElementById("chat");
@@ -97,12 +90,14 @@
       let text = input.value.trim();
       if (!text) return;
 
+      memory.push(text);
+
       chat.innerHTML += <div class='msg user'>أنت: ${text}</div>;
 
       setTimeout(() => {
         chat.innerHTML += <div class='msg bot'>AI: ${getReply(text)}</div>;
         chat.scrollTop = chat.scrollHeight;
-      }, 500);
+      }, 400);
 
       input.value = "";
     }
@@ -110,48 +105,28 @@
     function getReply(text) {
       let t = text.toLowerCase();
 
-      // --- تعليم برمجة ---
-      if (t.includes("html")) {
-        return "HTML هي لغة بناء صفحات الويب 🌐 وتستخدم لهيكلة المحتوى.";
+      // --- ذاكرة ---
+      if (t.includes("قلت")) {
+        return "أنت قلت سابقًا: " + memory[memory.length - 2];
       }
 
-      if (t.includes("css")) {
-        return "CSS تستخدم لتصميم وتنسيق المواقع 🎨 مثل الألوان والخطوط.";
-      }
+      // --- تعليم ---
+      if (t.includes("html")) return "HTML هي لغة بناء صفحات الويب 🌐";
+      if (t.includes("css")) return "CSS لتنسيق المواقع 🎨";
+      if (t.includes("js")) return "JavaScript تجعل الموقع تفاعلي 🤖";
 
-      if (t.includes("javascript") || t.includes("js")) {
-        return "JavaScript تجعل الموقع تفاعلي مثل هذا الشات 🤖";
-      }
+      // --- دراسة ---
+      if (t.includes("رياضيات")) return "أقدر أساعدك في الرياضيات خطوة خطوة 👍";
+      if (t.includes("انجليزي")) return "أقدر أشرح لك الإنجليزي وترجماته 👍";
 
-      // --- شرح عام ---
-      if (t.includes("اشرح") || t.includes("كيف")) {
-        return "أكيد 👍 اكتب لي الموضوع وأنا أشرحه لك خطوة خطوة.";
-      }
-
-      // --- دراسي ---
-      if (t.includes("رياضيات")) {
-        return "أقدر أساعدك في الرياضيات 👍 اكتب السؤال وسأحلّه لك خطوة خطوة.";
-      }
-
-      if (t.includes("انجليزي")) {
-        return "أقدر أساعدك في الإنجليزي: ترجمة، قواعد، أو شرح كلمات 👍";
-      }
-
-      // --- الموقع ---
-      if (t.includes("pdf")) {
-        return "روح إلى PDF Tools من الصفحة الرئيسية 📄";
-      }
-
-      if (t.includes("image")) {
-        return "روح إلى Image Tools 🖼️";
-      }
+      // --- أدوات ---
+      if (t.includes("pdf")) return "اذهب إلى PDF Tools 📄";
+      if (t.includes("image")) return "اذهب إلى Image Tools 🖼️";
 
       // --- عام ---
-      if (t.includes("مرحبا") || t.includes("hello")) {
-        return "أهلاً بك 👋 أنا مساعدك الذكي داخل الموقع.";
-      }
+      if (t.includes("مرحبا")) return "أهلاً بك 👋";
 
-      return "أنا أفهم أكثر الآن 🤖 اكتب سؤال أوضح وسأساعدك أفضل.";
+      return "أنا أتعلم من محادثتك 🤖 وأتحسن مع الوقت!";
     }
   </script>
 
