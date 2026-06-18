@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AI Chat Pro (API)</title>
+  <title>AI Chat Pro (OpenRouter)</title>
 
   <style>
     body {
@@ -80,7 +80,7 @@
 <body>
 
   <header>
-    AI Chat Pro 🤖 (Smart API Mode)
+    AI Chat Pro 🤖 (OpenRouter AI)
   </header>
 
   <div class="chat-box" id="chat"></div>
@@ -90,11 +90,9 @@
     <button onclick="send()">إرسال</button>
   </div>
 
-  <p class="hint">الذكاء الآن يعتمد على API (ردود حقيقية)</p>
+  <p class="hint">الآن الشات يستخدم ذكاء اصطناعي حقيقي عبر OpenRouter</p>
 
   <script>
-    let memory = [];
-
     function send() {
       let input = document.getElementById("input");
       let chat = document.getElementById("chat");
@@ -102,10 +100,7 @@
       let text = input.value.trim();
       if (!text) return;
 
-      memory.push(text);
-
       chat.innerHTML += <div class='msg user'>أنت: ${text}</div>;
-
       input.value = "";
 
       chat.innerHTML += <div class='msg bot'>جاري التفكير 🤖...</div>;
@@ -119,18 +114,18 @@
 
     async function getReply(text) {
       try {
-        let response = await fetch("https://api.openai.com/v1/chat/completions", {
+        let response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": "Bearer YOUR_API_KEY"
+            "Authorization": "Bearer a264cfa1-2682-5ca8-9324-891a848a8963"
           },
           body: JSON.stringify({
-            model: "gpt-4o-mini",
+            model: "openrouter/auto",
             messages: [
               {
                 role: "system",
-                content: "أنت مساعد دراسي ذكي داخل موقع AI Tools Hub. اشرح ببساطة وبخطوات واضحة ومختصرة."
+                content: "أنت مساعد دراسي ذكي داخل موقع AI Tools Hub. اشرح بشكل بسيط وخطوات واضحة."
               },
               {
                 role: "user",
