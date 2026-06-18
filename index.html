@@ -3,8 +3,8 @@
 <head>
   <title>AI Tools Hub</title>
 
-  <!-- PWA -->
-  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#111827">
+  <link rel="manifest" href="./manifest.json">
 
   <style>
     body {
@@ -54,67 +54,42 @@
       color: white;
       font-size: 18px;
       display: block;
-      transition: 0.2s;
     }
 
     .card:hover {
       background: #2563eb;
-      transform: scale(1.02);
-    }
-
-    .text {
-      text-align: center;
-      color: #94a3b8;
-      font-size: 13px;
-      margin-top: 10px;
     }
   </style>
 </head>
 
 <body>
 
-  <header>
-    🚀 AI Tools Hub
-  </header>
+<header>🚀 AI Tools Hub</header>
 
-  <div class="search">
-    <input type="text" id="searchBox" placeholder="ابحث عن أداة..." onkeyup="searchTools()">
-  </div>
+<div class="search">
+  <input id="searchBox" placeholder="ابحث..." onkeyup="searchTools()">
+</div>
 
-  <p class="text">
-    تطبيق أدوات ذكية يمكن تثبيته على الجوال 📱
-  </p>
+<div class="grid" id="tools">
+  <a class="card" href="pdf.html">📄 PDF Tools</a>
+  <a class="card" href="chat.html">🤖 AI Chat</a>
+  <a class="card" href="image.html">🖼 Image Tools</a>
+</div>
 
-  <div class="grid" id="tools">
+<script>
+function searchTools() {
+  let input = document.getElementById("searchBox").value.toLowerCase();
+  document.querySelectorAll(".card").forEach(card => {
+    card.style.display = card.textContent.toLowerCase().includes(input) ? "block" : "none";
+  });
+}
+</script>
 
-    <a class="card" href="pdf.html">📄 PDF Tools</a>
-
-    <a class="card" href="chat.html">🤖 AI Chat</a>
-
-    <a class="card" href="image.html">🖼️ Image Tools</a>
-
-    <a class="card" href="#" onclick="alert('قريباً أدوات أكثر')">⚙️ More Tools</a>
-
-  </div>
-
-  <script>
-    function searchTools() {
-      let input = document.getElementById("searchBox").value.toLowerCase();
-      let cards = document.querySelectorAll(".card");
-
-      cards.forEach(card => {
-        let text = card.textContent.toLowerCase();
-        card.style.display = text.includes(input) ? "block" : "none";
-      });
-    }
-  </script>
-
-  <!-- Service Worker -->
-  <script>
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("sw.js");
-    }
-  </script>
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("./sw.js");
+}
+</script>
 
 </body>
 </html>
