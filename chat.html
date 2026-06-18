@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AI Chat</title>
+  <title>AI Chat Free</title>
 
   <style>
     body {
@@ -29,7 +29,7 @@
     }
 
     .msg {
-      margin: 10px 0;
+      margin: 8px 0;
       padding: 8px;
       border-radius: 8px;
     }
@@ -53,7 +53,6 @@
     input {
       flex: 1;
       padding: 10px;
-      border: 1px solid #ccc;
     }
 
     button {
@@ -62,17 +61,13 @@
       color: white;
       border: none;
     }
-
-    button:hover {
-      background: #0056b3;
-    }
   </style>
 </head>
 
 <body>
 
   <header>
-    AI Chat 🤖
+    AI Chat 🤖 (Free Smart Version)
   </header>
 
   <div class="chat-box" id="chat"></div>
@@ -92,34 +87,44 @@
 
       chat.innerHTML += <div class='msg user'>أنت: ${text}</div>;
 
-      let reply = getReply(text.toLowerCase());
-
       setTimeout(() => {
-        chat.innerHTML += <div class='msg bot'>AI: ${reply}</div>;
+        chat.innerHTML += <div class='msg bot'>AI: ${getReply(text)}</div>;
         chat.scrollTop = chat.scrollHeight;
-      }, 500);
+      }, 400);
 
       input.value = "";
     }
 
     function getReply(text) {
+      text = text.toLowerCase();
+
+      // تحيات
       if (text.includes("مرحبا") || text.includes("hello")) {
-        return "أهلاً بك 👋 كيف أقدر أساعدك؟";
+        return "أهلاً 👋 كيف أقدر أساعدك اليوم؟";
       }
 
-      if (text.includes("اسمك")) {
-        return "أنا مساعد ذكي داخل موقعك 🤖";
+      // تعريف
+      if (text.includes("من أنت") || text.includes("اسمك")) {
+        return "أنا مساعد ذكي مجاني داخل موقعك 🤖";
       }
 
+      // PDF
       if (text.includes("pdf")) {
-        return "روح إلى PDF Tools 📄 من الصفحة الرئيسية";
+        return "تقدر تستخدم PDF Tools من الصفحة الرئيسية 📄";
       }
 
-      if (text.includes("موقع")) {
-        return "هذا مشروع AI Tools Hub خاص بك 🚀";
+      // تعليم
+      if (text.includes("تعلم") || text.includes("كيف")) {
+        return "أنا أقدر أساعدك في الشرح خطوة خطوة 👍";
       }
 
-      return "أنا ما زلت أتعلم 🤖 لكني سأتحسن مع الوقت!";
+      // برمجة
+      if (text.includes("html")) {
+        return "HTML هو لغة بناء صفحات الويب 🌐";
+      }
+
+      // افتراضي ذكي
+      return "أنا أفهمك بشكل محدود الآن 🤖 لكن المشروع يتطور خطوة خطوة!";
     }
   </script>
 
